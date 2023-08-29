@@ -14,6 +14,7 @@ import SpinLoading from '../components/SpinLoader'
 import StyledNavLink from '../components/StyledNavLink'
 //Icons
 import { UserIcon, KeyIcon, MailIcon } from '@heroicons/react/outline'
+import { useNavigate } from 'react-router-dom'
 
 const signUpSchema = Yup.object({
   username: Yup.string()
@@ -35,7 +36,7 @@ const SignUpPage = () => {
   const [loading, setLoading] = useState(false)
   const [successful, setSuccessful] = useState(false)
   const { message } = useSelector((state) => state.message)
-  // const history = useHistory();
+  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -50,7 +51,7 @@ const SignUpPage = () => {
       .unwrap()
       .then(() => {
         setSuccessful(true)
-        // history.push("/");
+        navigate('/posts', { replace: true })
       })
       .catch(() => {
         setSuccessful(false)
@@ -73,19 +74,19 @@ const SignUpPage = () => {
       <FormikProvider value={formik}>
         {!successful && (
           <form
-            className="space-y-6 min-w-[200px] w-full mb-10"
+            className='space-y-6 min-w-[200px] w-full mb-10'
             onSubmit={formik.handleSubmit}>
-            <TextField label="Username" name="username" icon={UserIcon} />
+            <TextField label='Username' name='username' icon={UserIcon} />
             {/* <FloatingTextInput /> */}
-            <TextField label="Email" name="email" icon={MailIcon} />
+            <TextField label='Email' name='email' icon={MailIcon} />
 
             <TextField
-              label="Password"
-              name="password"
-              type="password"
+              label='Password'
+              name='password'
+              type='password'
               icon={KeyIcon}
             />
-            <div className="pt-2">
+            <div className='pt-2'>
               <Button disabled={loading}>
                 {loading && <SpinLoading />} Sign Up
               </Button>
@@ -93,20 +94,20 @@ const SignUpPage = () => {
           </form>
         )}
         {message && (
-          <div className="form-group">
+          <div className='form-group'>
             <div
               className={
                 successful ? 'alert alert-success' : 'alert alert-danger'
               }
-              role="alert">
+              role='alert'>
               {message}
             </div>
           </div>
         )}
       </FormikProvider>
-      <p className="text-slate-600 text-sm">
+      <p className='text-slate-600 text-sm'>
         <span> Already have account? </span>
-        <StyledNavLink styleType="underline" to="/auth/login">
+        <StyledNavLink styleType='underline' to='/auth/login'>
           Log In
         </StyledNavLink>
       </p>

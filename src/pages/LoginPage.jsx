@@ -14,6 +14,7 @@ import TextField from '../components/inputs/TextInput'
 import Card from '../components/Card'
 // Icons
 import { UserIcon, KeyIcon } from '@heroicons/react/outline'
+import { useNavigate } from 'react-router-dom'
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required('This field is required!'),
@@ -28,7 +29,7 @@ const initialValues = {
 const LoginPage = () => {
   const [loading, setLoading] = useState(false)
   const { message } = useSelector((state) => state.message)
-  // const history = useHistory();
+  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -44,7 +45,7 @@ const LoginPage = () => {
     dispatch(login({ username, password }))
       .unwrap()
       .then(() => {
-        // history.push(redirect || "/");
+        navigate('/posts', { replace: true })
       })
       .catch(() => {
         setLoading(false)
@@ -59,28 +60,28 @@ const LoginPage = () => {
 
   return (
     <>
-      <div className="mb-12 text-slate-900">
+      <div className='mb-12 text-slate-900'>
         <Card.Title>Login</Card.Title>
 
-        <div className="text-sm text-slate-600">
+        <div className='text-sm text-slate-600'>
           or{' '}
-          <StyledNavLink to="/auth/signUp" styleType="underline">
+          <StyledNavLink to='/auth/signUp' styleType='underline'>
             {' '}
             start your 14-day free trial
           </StyledNavLink>
         </div>
         <FormikProvider value={formik}>
           <form
-            className="space-y-6 min-w-[200px] w-full mb-10"
+            className='space-y-6 min-w-[200px] w-full mb-10'
             onSubmit={formik.handleSubmit}>
-            <TextField label="Username" name="username" icon={UserIcon} />
+            <TextField label='Username' name='username' icon={UserIcon} />
             <TextField
-              label="Password"
-              name="password"
-              type="password"
+              label='Password'
+              name='password'
+              type='password'
               icon={KeyIcon}
             />
-            <div className="pt-2">
+            <div className='pt-2'>
               <Button disabled={loading}>
                 {loading && <SpinLoading />} Log In
               </Button>
@@ -88,8 +89,8 @@ const LoginPage = () => {
           </form>
 
           {message && (
-            <div className="form-group">
-              <div className="alert alert-danger" role="alert">
+            <div className='form-group'>
+              <div className='alert alert-danger' role='alert'>
                 {message}
               </div>
             </div>
