@@ -1,7 +1,13 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { twMerge } from 'tailwind-merge'
-const StyledNavLink = ({ children, to, styleType = 'default', className }) => {
+
+const StyledNavLink = ({
+  children,
+  styleType = 'default',
+  className,
+  ...rest
+}) => {
   function getLinkStyle(style) {
     switch (style) {
       case 'button':
@@ -17,14 +23,14 @@ const StyledNavLink = ({ children, to, styleType = 'default', className }) => {
 
   return (
     <NavLink
-      className={(isActive) =>
+      className={({ isActive }) =>
         twMerge(
           className || '',
           getLinkStyle(styleType),
           styleType === 'default' && isActive && 'text-blue-300'
         )
       }
-      to={to}>
+      {...rest}>
       {children}
     </NavLink>
   )
