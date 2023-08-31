@@ -11,7 +11,7 @@ import SignUpPage from './pages/SigupPage'
 
 const routes = (isLoggedIn, location) => [
   {
-    path: '/',
+    path: '',
     element: <MainPage />,
   },
   {
