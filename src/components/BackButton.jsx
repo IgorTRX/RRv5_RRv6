@@ -6,7 +6,7 @@ import { ChevronLeftIcon } from '@heroicons/react/solid'
 const BackButton = ({ children, label }) => {
   const navigate = useNavigate()
   const handleSubmit = () => {
-    navigate(-1)
+    navigate('/posts')
   }
   return (
     <button
